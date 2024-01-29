@@ -1,0 +1,41 @@
+from github import Github
+
+def get_github_user(username):
+    try:
+        g = Github()
+        user = g.get_user(username)
+        return user
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def get_user_repositories(user):
+    try:
+        repositories = user.get_repos()
+        repo_names = [repo.name for repo in repositories]
+        return repo_names
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+if __name__ == "__main__":
+    print("GitHub Chatbot:")
+    username = input("Enter a GitHub username: ")
+
+    github_user = get_github_user(username)
+
+    if isinstance(github_user, str):
+        print(github_user)
+    else:
+        print(f"\nUser Information:")
+        print(f"Username: {github_user.login}")
+        print(f"Name: {github_user.name}")
+        print(f"Location: {github_user.location}")
+        print(f"Bio: {github_user.bio}\n")
+
+        repositories = get_user_repositories(github_user)
+
+        if isinstance(repositories, str):
+            print(repositories)
+        else:
+            print("Repositories:")
+            for repo in repositories:
+                print(f"- {repo}")
