@@ -1,0 +1,23 @@
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
+# Create a chatbot instance
+chatbot = ChatBot('MyBot')
+
+# Create a new trainer for the chatbot
+trainer = ChatterBotCorpusTrainer(chatbot)
+
+# Train the chatbot on English language data
+trainer.train('chatterbot.corpus.english')
+
+# Train the chatbot on custom data (replace with your own data)
+trainer.train([
+    'How are you?',
+    'I am fine, thank you.',
+    'What is your name?',
+    'My name is MyBot.'
+])
+
+# Test the chatbot
+response = chatbot.get_response('How can I help you?')
+print('Bot:', response)
